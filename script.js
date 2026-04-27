@@ -99,20 +99,32 @@
       }
     });
 
-    // Llevamos al usuario al inicio del capítulo. Usamos scrollTo absoluto
-    // y NO smooth — el smooth se rompe cuando el documento cambia de altura
-    // durante el swap (reflow). Doble rAF asegura que el layout terminó.
+    // Forzamos al usuario al inicio del nuevo capítulo. Triple método para
+    // bypass cualquier scroll-behavior smooth heredado del CSS y garantizar
+    // que funcione aunque venga del outro o de muy abajo.
     const navEl = document.getElementById('chapter-nav');
     if (!navEl) return;
+
+    const html = document.documentElement;
+    const body = document.body;
+    const prev = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+
+    // Leer offsetTop fuerza reflow → valor correcto del layout actual
+    let targetY = navEl.offsetTop;
+
+    // 3 vías paralelas (algunos navegadores respetan unas y no otras)
+    window.scrollTo(0, targetY);
+    html.scrollTop = targetY;
+    body.scrollTop = targetY;
+
+    // Repetimos tras el reflow asíncrono por si la altura del documento cambió
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        const targetY = navEl.offsetTop;
-        const html = document.documentElement;
-        const prev = html.style.scrollBehavior;
-        html.style.scrollBehavior = 'auto';
-        window.scrollTo(0, targetY);
-        html.style.scrollBehavior = prev;
-      });
+      targetY = navEl.offsetTop;
+      window.scrollTo(0, targetY);
+      html.scrollTop = targetY;
+      body.scrollTop = targetY;
+      html.style.scrollBehavior = prev;
     });
   }
 
