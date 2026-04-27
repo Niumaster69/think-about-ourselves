@@ -4,7 +4,7 @@ Una antología visual de cuatro voces — proyecto del curso de inglés (English
 
 > Cuatro estudiantes. Cuatro capítulos. Una historia compartida sobre quiénes fuimos, qué hemos logrado, cómo vivimos hoy y quiénes seremos en quince años.
 
-**Autores:** Carlos Mario del Valle · Anamaría · Duvan Lozano · Henry
+**Autores:** Carlos Mario del Valle · Ana Maria Caceres · Duvan Lozano · Henry Alejandro Ortega
 
 ---
 

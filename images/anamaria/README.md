@@ -1,4 +1,4 @@
-# Imágenes — Anamaría
+# Imágenes — Ana Maria Caceres
 
 Sube **20 imágenes** en esta carpeta con los nombres exactos de la tabla. Cada archivo debe ilustrar la oración correspondiente del cuadro `data.js`.
 

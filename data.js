@@ -45,7 +45,7 @@ const STUDENTS = [
   },
   {
     id: "anamaria",
-    name: "Anamaría",
+    name: "Ana Maria Caceres",
     chapters: {
       past: [
         "I lived in Zipaquirá.",
@@ -113,7 +113,7 @@ const STUDENTS = [
   },
   {
     id: "henry",
-    name: "Henry",
+    name: "Henry Alejandro Ortega",
     chapters: {
       past: [
         "[Sentence 1]",
