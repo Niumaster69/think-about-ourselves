@@ -99,16 +99,21 @@
       }
     });
 
-    // Llevamos al usuario al inicio del capítulo. Usamos scrollTo en vez de
-    // scrollIntoView porque éste último no scrollea cuando el target es un
-    // elemento sticky que el navegador considera "ya visible" (pegado al tope).
+    // Llevamos al usuario al inicio del capítulo. Usamos scrollTo absoluto
+    // y NO smooth — el smooth se rompe cuando el documento cambia de altura
+    // durante el swap (reflow). Doble rAF asegura que el layout terminó.
     const navEl = document.getElementById('chapter-nav');
     if (!navEl) return;
-    // offsetTop nos da la posición ORIGINAL del nav (justo después del hero).
-    // Al hacer scroll a ese punto, el nav queda pegado arriba y el contenido
-    // del capítulo activo aparece justo debajo.
-    const targetY = navEl.offsetTop;
-    window.scrollTo({ top: targetY, behavior: 'smooth' });
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const targetY = navEl.offsetTop;
+        const html = document.documentElement;
+        const prev = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+        window.scrollTo(0, targetY);
+        html.style.scrollBehavior = prev;
+      });
+    });
   }
 
   function buildStudentSection(student, chapter) {
