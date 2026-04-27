@@ -98,9 +98,17 @@
         $$('.reveal, .sentences', sec).forEach(el => el.classList.add('is-visible'));
       }
     });
-    // Coloca al usuario al inicio del capítulo (pegado al nav sticky)
+
+    // Llevamos al usuario al inicio del capítulo. Usamos scrollTo en vez de
+    // scrollIntoView porque éste último no scrollea cuando el target es un
+    // elemento sticky que el navegador considera "ya visible" (pegado al tope).
     const navEl = document.getElementById('chapter-nav');
-    if (navEl) navEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!navEl) return;
+    // offsetTop nos da la posición ORIGINAL del nav (justo después del hero).
+    // Al hacer scroll a ese punto, el nav queda pegado arriba y el contenido
+    // del capítulo activo aparece justo debajo.
+    const targetY = navEl.offsetTop;
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
   }
 
   function buildStudentSection(student, chapter) {
