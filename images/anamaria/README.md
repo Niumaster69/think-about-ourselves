@@ -6,28 +6,28 @@ Sube **20 imágenes** en esta carpeta con los nombres exactos de la tabla. Cada 
 
 ## Tabla de correspondencia
 
-| Archivo            | Capítulo               | Corresponde a                          |
-| ------------------ | ---------------------- | -------------------------------------- |
-| `past-1.jpg`       | Our Past               | Tu oración 1 del capítulo *Past*       |
-| `past-2.jpg`       | Our Past               | Tu oración 2 del capítulo *Past*       |
-| `past-3.jpg`       | Our Past               | Tu oración 3 del capítulo *Past*       |
-| `past-4.jpg`       | Our Past               | Tu oración 4 del capítulo *Past*       |
-| `past-5.jpg`       | Our Past               | Tu oración 5 del capítulo *Past*       |
-| `achieved-1.jpg`   | What We Have Achieved  | Tu oración 1 del capítulo *Achieved*   |
-| `achieved-2.jpg`   | What We Have Achieved  | Tu oración 2 del capítulo *Achieved*   |
-| `achieved-3.jpg`   | What We Have Achieved  | Tu oración 3 del capítulo *Achieved*   |
-| `achieved-4.jpg`   | What We Have Achieved  | Tu oración 4 del capítulo *Achieved*   |
-| `achieved-5.jpg`   | What We Have Achieved  | Tu oración 5 del capítulo *Achieved*   |
-| `thismonth-1.jpg`  | This Month             | Tu oración 1 del capítulo *This Month* |
-| `thismonth-2.jpg`  | This Month             | Tu oración 2 del capítulo *This Month* |
-| `thismonth-3.jpg`  | This Month             | Tu oración 3 del capítulo *This Month* |
-| `thismonth-4.jpg`  | This Month             | Tu oración 4 del capítulo *This Month* |
-| `thismonth-5.jpg`  | This Month             | Tu oración 5 del capítulo *This Month* |
-| `future-1.jpg`     | In 15 Years            | Tu oración 1 del capítulo *Future*     |
-| `future-2.jpg`     | In 15 Years            | Tu oración 2 del capítulo *Future*     |
-| `future-3.jpg`     | In 15 Years            | Tu oración 3 del capítulo *Future*     |
-| `future-4.jpg`     | In 15 Years            | Tu oración 4 del capítulo *Future*     |
-| `future-5.jpg`     | In 15 Years            | Tu oración 5 del capítulo *Future*     |
+| Archivo            | Capítulo                  | Corresponde a                              |
+| ------------------ | ------------------------- | ------------------------------------------ |
+| `past-1.jpg`       | Our Past                  | "I lived in Zipaquirá."                    |
+| `past-2.jpg`       | Our Past                  | "I played with my friends."                |
+| `past-3.jpg`       | Our Past                  | "I loved computers and tech."              |
+| `past-4.jpg`       | Our Past                  | "I traveled with my parents."              |
+| `past-5.jpg`       | Our Past                  | "I studied in my school."                  |
+| `achieved-1.jpg`   | What We Have Achieved     | "I have traveled to Europe."               |
+| `achieved-2.jpg`   | What We Have Achieved     | "I have studied five semesters."           |
+| `achieved-3.jpg`   | What We Have Achieved     | "I have bought a motorcycle."              |
+| `achieved-4.jpg`   | What We Have Achieved     | "I have worked very hard."                 |
+| `achieved-5.jpg`   | What We Have Achieved     | "I have learned to drive."                 |
+| `thismonth-1.jpg`  | This Month                | "I have been studying engineering."        |
+| `thismonth-2.jpg`  | This Month                | "I have been feeding Orion."               |
+| `thismonth-3.jpg`  | This Month                | "I have been visiting family."             |
+| `thismonth-4.jpg`  | This Month                | "I have been walking more."                |
+| `thismonth-5.jpg`  | This Month                | "I have been speaking English."            |
+| `future-1.jpg`     | In 15 Years               | "I will be an engineer."                   |
+| `future-2.jpg`     | In 15 Years               | "I will travel the world."                 |
+| `future-3.jpg`     | In 15 Years               | "I will buy a house."                      |
+| `future-4.jpg`     | In 15 Years               | "I will have more CARS."                   |
+| `future-5.jpg`     | In 15 Years               | "I will be very happy."                    |
 
 ## Recomendaciones técnicas
 

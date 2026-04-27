@@ -4,7 +4,7 @@ Una antología visual de cuatro voces — proyecto del curso de inglés (English
 
 > Cuatro estudiantes. Cuatro capítulos. Una historia compartida sobre quiénes fuimos, qué hemos logrado, cómo vivimos hoy y quiénes seremos en quince años.
 
-**Autores:** Carlos Mario del Valle · Anamaría · Duvan · Henry
+**Autores:** Carlos Mario del Valle · Anamaría · Duvan Lozano · Henry
 
 ---
 
@@ -85,7 +85,7 @@ Cada carpeta tiene su propio `README.md` con la tabla detallada.
 3. Reemplaza los textos `[Sentence 1]`, `[Sentence 2]`, ... por tus oraciones reales en cada capítulo (`past`, `achieved`, `thismonth`, `future`).
 4. Guarda y recarga el navegador.
 
-Las oraciones de **Carlos Mario** ya están escritas — sirven de referencia del formato.
+Las oraciones de **Duvan Lozano** ya están escritas — sirven de referencia del formato.
 
 > **No cambies** los nombres de los capítulos (`past`, `achieved`, `thismonth`, `future`), ni los `id` de los estudiantes, ni los nombres mostrados — el JavaScript depende de ellos para emparejar oraciones e imágenes.
 

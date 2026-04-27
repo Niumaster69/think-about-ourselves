@@ -19,14 +19,8 @@
   // Detecta si una oración es un placeholder pendiente de edición
   const isPlaceholder = (text) => /^\s*\[Sentence\s*\d+\]\s*$/i.test(text);
 
-  // Patrones de layout para las galerías. Se rotan por capítulo y estudiante
-  // para que cada bloque tenga un ritmo visual distinto sin verse aleatorio.
-  const GALLERY_LAYOUTS = [
-    ['feature', 'pair-l', 'pair-r', 'narrow-l', 'narrow-r'],
-    ['narrow-l', 'narrow-r', 'feature', 'pair-l', 'pair-r'],
-    ['right',    'pair-l', 'pair-r', 'left',    'feature'],
-    ['feature', 'left',    'right',  'pair-l',  'pair-r']
-  ];
+  // Velocidad de parallax única, sutil. Misma para todas las imágenes.
+  const PARALLAX_SPEED = 0.14;
 
   /* ---------- Render principal ---------- */
   function render() {
@@ -39,8 +33,13 @@
     const frag = document.createDocumentFragment();
 
     CHAPTERS.forEach((chapter, chapterIdx) => {
-      // ----- Header del capítulo (pantalla completa) -----
-      const header = document.createElement('section');
+      // Contenedor del capítulo: sólo el activo se renderiza (display:block)
+      const wrapper = document.createElement('section');
+      wrapper.className = 'chapter-section' + (chapterIdx === 0 ? ' is-active' : '');
+      wrapper.dataset.chapterId = chapter.id;
+
+      // ----- Header del capítulo (más compacto en modo tabs) -----
+      const header = document.createElement('div');
       header.className = 'chapter-header';
       header.id = `chapter-${chapter.id}`;
       header.innerHTML = `
@@ -50,20 +49,61 @@
           <p class="chapter-header__subtitle reveal">${escapeHTML(chapter.subtitle)}</p>
         </div>
       `;
-      frag.appendChild(header);
+      wrapper.appendChild(header);
 
       // ----- 4 secciones de estudiante en orden fijo -----
-      STUDENTS.forEach((student, studentIdx) => {
-        const layout = GALLERY_LAYOUTS[(chapterIdx + studentIdx) % GALLERY_LAYOUTS.length];
-        const section = buildStudentSection(student, chapter, layout);
-        frag.appendChild(section);
+      STUDENTS.forEach((student) => {
+        wrapper.appendChild(buildStudentSection(student, chapter));
       });
+
+      frag.appendChild(wrapper);
     });
 
     root.appendChild(frag);
   }
 
-  function buildStudentSection(student, chapter, layout) {
+  /* ---------- Navegación de capítulos por clic ---------- */
+  function setupChapterNav() {
+    const nav = document.getElementById('chapter-nav');
+    if (!nav || typeof CHAPTERS === 'undefined') return;
+
+    nav.innerHTML = CHAPTERS.map((c, i) => `
+      <button type="button"
+              class="chapter-nav__btn${i === 0 ? ' is-active' : ''}"
+              data-chapter-id="${c.id}">
+        <span class="chapter-nav__num">${String(c.number).padStart(2, '0')}</span>
+        <span class="chapter-nav__title">${escapeHTML(c.title)}</span>
+      </button>
+    `).join('');
+
+    nav.addEventListener('click', (e) => {
+      const btn = e.target.closest('.chapter-nav__btn');
+      if (!btn) return;
+      activateChapter(btn.dataset.chapterId);
+    });
+  }
+
+  function activateChapter(id) {
+    // Marca el botón activo en el nav
+    $$('.chapter-nav__btn').forEach((btn) => {
+      btn.classList.toggle('is-active', btn.dataset.chapterId === id);
+    });
+    // Muestra solo el capítulo elegido
+    $$('.chapter-section').forEach((sec) => {
+      const active = sec.dataset.chapterId === id;
+      sec.classList.toggle('is-active', active);
+      if (active) {
+        // Forzamos los reveals del capítulo recién mostrado
+        // (el IntersectionObserver no siempre dispara al cambiar display)
+        $$('.reveal, .sentences', sec).forEach(el => el.classList.add('is-visible'));
+      }
+    });
+    // Coloca al usuario al inicio del capítulo (pegado al nav sticky)
+    const navEl = document.getElementById('chapter-nav');
+    if (navEl) navEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function buildStudentSection(student, chapter) {
     const section = document.createElement('section');
     section.className = 'student';
     section.id = `${student.id}-${chapter.id}`;
@@ -82,14 +122,17 @@
       `;
     }).join('');
 
-    const galleryHTML = sentences.map((_, i) => {
-      const cls = layout[i] || 'feature';
+    const galleryHTML = sentences.map((text, i) => {
       const src = `images/${student.id}/${chapter.id}-${i + 1}.jpg`;
       const tag = `${String(i + 1).padStart(2, '0')} / 05`;
-      // data-parallax controla la velocidad relativa (0 = sin parallax)
-      const speed = parallaxSpeedFor(cls);
+      // Si la oración es placeholder no la mostramos en el lightbox
+      const sentenceForLightbox = isPlaceholder(text) ? '' : text;
       return `
-        <figure class="media media--${cls}" data-parallax="${speed}">
+        <figure class="media"
+                data-parallax="${PARALLAX_SPEED}"
+                data-sentence="${escapeHTML(sentenceForLightbox)}"
+                data-student="${escapeHTML(student.name)}"
+                data-chapter="${escapeHTML(chapter.title)}">
           <span class="media__tag">${tag}</span>
           <img
             src="${src}"
@@ -117,21 +160,6 @@
     });
 
     return section;
-  }
-
-  function parallaxSpeedFor(layoutClass) {
-    // Distintas velocidades por tipo de imagen → sensación de profundidad
-    switch (layoutClass) {
-      case 'feature':
-      case 'wide':     return 0.18;
-      case 'right':
-      case 'left':     return 0.14;
-      case 'narrow-l':
-      case 'narrow-r': return 0.22;
-      case 'pair-l':
-      case 'pair-r':   return 0.10;
-      default:         return 0.14;
-    }
   }
 
   function handleMissingImage(img) {
@@ -276,13 +304,136 @@
     });
   }
 
+  /* ---------- Lightbox / Carrusel ---------- */
+  function setupLightbox() {
+    const lb = document.getElementById('lightbox');
+    if (!lb) return;
+
+    const stage      = lb.querySelector('.lightbox__stage');
+    const lbImg      = lb.querySelector('.lightbox__img');
+    const lbCounter  = lb.querySelector('.lightbox__counter');
+    const lbSentence = lb.querySelector('.lightbox__sentence');
+    const lbMeta     = lb.querySelector('.lightbox__meta');
+    const closeBtn   = lb.querySelector('.lightbox__close');
+    const prevBtn    = lb.querySelector('.lightbox__nav--prev');
+    const nextBtn    = lb.querySelector('.lightbox__nav--next');
+
+    let items = [];
+    let index = 0;
+    let isOpen = false;
+    let swapTimer = null;
+
+    const pad = (n) => String(n).padStart(2, '0');
+
+    const open = (galleryEl, startIndex) => {
+      const figs = $$('.media', galleryEl);
+      items = figs.map((fig) => ({
+        src: fig.querySelector('img').getAttribute('src'),
+        alt: fig.querySelector('img').getAttribute('alt'),
+        sentence: fig.dataset.sentence || '',
+        student:  fig.dataset.student  || '',
+        chapter:  fig.dataset.chapter  || ''
+      }));
+      index = startIndex;
+      isOpen = true;
+      lb.classList.add('is-open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-open');
+      show(false);
+    };
+
+    const close = () => {
+      isOpen = false;
+      lb.classList.remove('is-open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-open');
+      if (swapTimer) { clearTimeout(swapTimer); swapTimer = null; }
+    };
+
+    const show = (animate = true) => {
+      const item = items[index];
+      if (!item) return;
+
+      // Actualiza texto inmediatamente
+      lbCounter.textContent  = `${pad(index + 1)} / ${pad(items.length)}`;
+      lbSentence.textContent = item.sentence;
+      lbMeta.textContent     = item.student + (item.chapter ? ' · ' + item.chapter : '');
+
+      const swap = () => {
+        stage.classList.remove('is-missing');
+        lbImg.onload  = () => lbImg.classList.remove('is-loading');
+        lbImg.onerror = () => {
+          stage.classList.add('is-missing');
+          lbImg.classList.remove('is-loading');
+        };
+        lbImg.src = item.src;
+        lbImg.alt = item.alt;
+      };
+
+      if (animate) {
+        lbImg.classList.add('is-loading');
+        if (swapTimer) clearTimeout(swapTimer);
+        swapTimer = setTimeout(swap, 180);
+      } else {
+        swap();
+      }
+    };
+
+    const next = () => { if (items.length) { index = (index + 1) % items.length; show(); } };
+    const prev = () => { if (items.length) { index = (index - 1 + items.length) % items.length; show(); } };
+
+    // Click en cualquier imagen → abre el lightbox en esa imagen
+    const chapters = document.getElementById('chapters');
+    if (chapters) {
+      chapters.addEventListener('click', (e) => {
+        const fig = e.target.closest('.media');
+        if (!fig || fig.classList.contains('media--missing')) return;
+        const gallery = fig.closest('.gallery');
+        if (!gallery) return;
+        const figs = $$('.media', gallery);
+        const startIndex = figs.indexOf(fig);
+        if (startIndex < 0) return;
+        open(gallery, startIndex);
+      });
+    }
+
+    closeBtn.addEventListener('click', close);
+    prevBtn .addEventListener('click', prev);
+    nextBtn .addEventListener('click', next);
+
+    // Click en el fondo (no en la imagen ni botones)
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb || e.target === stage) close();
+    });
+
+    // Teclado: ← → Esc
+    document.addEventListener('keydown', (e) => {
+      if (!isOpen) return;
+      if      (e.key === 'Escape')     close();
+      else if (e.key === 'ArrowRight') next();
+      else if (e.key === 'ArrowLeft')  prev();
+    });
+
+    // Swipe en móvil
+    let touchStartX = 0;
+    lb.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    lb.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(dx) > 50) (dx < 0 ? next() : prev());
+    }, { passive: true });
+  }
+
   /* ---------- Arranque ---------- */
   function init() {
     render();
+    setupChapterNav();
     setupReveals();
     setupParallax();
     setupProgress();
     setupCursor();
+    setupLightbox();
   }
 
   if (document.readyState === 'loading') {

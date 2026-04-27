@@ -34,7 +34,7 @@
         <span class="dot" aria-hidden="true">·</span>
         <span>Anamaría</span>
         <span class="dot" aria-hidden="true">·</span>
-        <span>Duvan</span>
+        <span>Duvan Lozano</span>
         <span class="dot" aria-hidden="true">·</span>
         <span>Henry</span>
       </div>
@@ -45,6 +45,9 @@
       <span class="scroll-indicator__line" aria-hidden="true"></span>
     </a>
   </header>
+
+  <!-- ====== NAVEGACIÓN DE CAPÍTULOS (sticky, los botones los pinta script.js) ====== -->
+  <nav id="chapter-nav" class="chapter-nav" aria-label="Chapters"></nav>
 
   <!-- ====== CAPÍTULOS (renderizados por script.js a partir de data.js) ====== -->
   <main id="chapters" class="chapters"></main>
@@ -57,11 +60,27 @@
       <h2 class="outro__title reveal">These are <em>us</em>.</h2>
       <p class="outro__line reveal">Past &middot; Present &middot; Future</p>
       <p class="outro__credits reveal">
-        <em>Carlos Mario del Valle &middot; Anamaría &middot; Duvan &middot; Henry</em>
+        <em>Carlos Mario del Valle &middot; Anamaría &middot; Duvan Lozano &middot; Henry</em>
       </p>
       <p class="outro__brand reveal">Think About Ourselves — English Class 2026</p>
     </div>
   </footer>
+
+  <!-- ====== LIGHTBOX / CARRUSEL ====== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+    <button class="lightbox__close" type="button" aria-label="Close">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous image">‹</button>
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next image">›</button>
+    <div class="lightbox__stage">
+      <img class="lightbox__img" alt="">
+      <div class="lightbox__missing"><span>Photo coming soon</span></div>
+    </div>
+    <div class="lightbox__caption">
+      <span class="lightbox__counter"></span>
+      <p class="lightbox__sentence"></p>
+      <span class="lightbox__meta"></span>
+    </div>
+  </div>
 
   <!-- Datos del proyecto: editable por cualquier estudiante -->
   <script src="data.js"></script>

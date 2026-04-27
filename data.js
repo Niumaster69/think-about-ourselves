@@ -14,6 +14,74 @@ const STUDENTS = [
     name: "Carlos Mario del Valle",
     chapters: {
       past: [
+        "I played video games a lot when I was a child.",
+        "I played soccer when I was younger.",
+        "I traveled with my school soccer team.",
+        "I studied English in high school.",
+        "I spent time with my family and friends."
+      ],
+      achieved: [
+        "I have built my own home.",
+        "I have started working on my second apartment project.",
+        "I have achieved working from home as I always wanted.",
+        "I have traveled to four countries, but I want to explore Colombia more.",
+        "I haven't worked for a big company that pays in dollars yet."
+      ],
+      thismonth: [
+        "I have been studying programming.",
+        "I have been working on my projects.",
+        "I have been practicing English.",
+        "I have been learning new things about technology.",
+        "I have been preparing my assignments."
+      ],
+      future: [
+        "I will be a professional programmer.",
+        "I will have financial independence and I won't need to work.",
+        "I will own at least five apartments.",
+        "I will start my project of living in front of the sea.",
+        "I will help my family financially."
+      ]
+    }
+  },
+  {
+    id: "anamaria",
+    name: "Anamaría",
+    chapters: {
+      past: [
+        "I lived in Zipaquirá.",
+        "I played with my friends.",
+        "I loved computers and tech.",
+        "I traveled with my parents.",
+        "I studied in my school."
+      ],
+      achieved: [
+        "I have traveled to Europe.",
+        "I have studied five semesters.",
+        "I have bought a motorcycle.",
+        "I have worked very hard.",
+        "I have learned to drive."
+      ],
+      thismonth: [
+        "I have been studying engineering.",
+        "I have been feeding Orion.",
+        "I have been visiting family.",
+        "I have been walking more.",
+        "I have been speaking English."
+      ],
+      future: [
+        "I will be an engineer.",
+        "I will travel the world.",
+        "I will buy a house.",
+        "I will have more CARS.",
+        "I will be very happy."
+      ]
+    }
+  },
+  {
+    id: "duvan",
+    name: "Duvan Lozano",
+    chapters: {
+      past: [
         "I had a ball.",
         "I didn't have a favorite school.",
         "I had a dog.",
@@ -40,74 +108,6 @@ const STUDENTS = [
         "I'll have children.",
         "I won't travel often.",
         "I won't be happy."
-      ]
-    }
-  },
-  {
-    id: "anamaria",
-    name: "Anamaría",
-    chapters: {
-      past: [
-        "[Sentence 1]",
-        "[Sentence 2]",
-        "[Sentence 3]",
-        "[Sentence 4]",
-        "[Sentence 5]"
-      ],
-      achieved: [
-        "[Sentence 1]",
-        "[Sentence 2]",
-        "[Sentence 3]",
-        "[Sentence 4]",
-        "[Sentence 5]"
-      ],
-      thismonth: [
-        "[Sentence 1]",
-        "[Sentence 2]",
-        "[Sentence 3]",
-        "[Sentence 4]",
-        "[Sentence 5]"
-      ],
-      future: [
-        "[Sentence 1]",
-        "[Sentence 2]",
-        "[Sentence 3]",
-        "[Sentence 4]",
-        "[Sentence 5]"
-      ]
-    }
-  },
-  {
-    id: "duvan",
-    name: "Duvan",
-    chapters: {
-      past: [
-        "[Sentence 1]",
-        "[Sentence 2]",
-        "[Sentence 3]",
-        "[Sentence 4]",
-        "[Sentence 5]"
-      ],
-      achieved: [
-        "[Sentence 1]",
-        "[Sentence 2]",
-        "[Sentence 3]",
-        "[Sentence 4]",
-        "[Sentence 5]"
-      ],
-      thismonth: [
-        "[Sentence 1]",
-        "[Sentence 2]",
-        "[Sentence 3]",
-        "[Sentence 4]",
-        "[Sentence 5]"
-      ],
-      future: [
-        "[Sentence 1]",
-        "[Sentence 2]",
-        "[Sentence 3]",
-        "[Sentence 4]",
-        "[Sentence 5]"
       ]
     }
   },
