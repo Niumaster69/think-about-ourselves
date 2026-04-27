@@ -116,32 +116,32 @@ const STUDENTS = [
     name: "Henry Alejandro Ortega",
     chapters: {
       past: [
-        "[Sentence 1]",
-        "[Sentence 2]",
-        "[Sentence 3]",
-        "[Sentence 4]",
-        "[Sentence 5]"
+        "I played basketball with my friends.",
+        "I studied in a public school.",
+        "I enjoyed technology and computers.",
+        "I traveled with my family on vacations.",
+        "I spent time learning new skills."
       ],
       achieved: [
-        "[Sentence 1]",
-        "[Sentence 2]",
-        "[Sentence 3]",
-        "[Sentence 4]",
-        "[Sentence 5]"
+        "I have completed several small projects.",
+        "I have developed new skills in programming.",
+        "I have taken online courses about technology.",
+        "I have improved my problem-solving abilities.",
+        "I haven't achieved all my goals yet."
       ],
       thismonth: [
-        "[Sentence 1]",
-        "[Sentence 2]",
-        "[Sentence 3]",
-        "[Sentence 4]",
-        "[Sentence 5]"
+        "I have been working on different coding exercises.",
+        "I have been improving my English every day.",
+        "I have been exploring new technologies.",
+        "I have been focusing on my personal growth.",
+        "I have been practicing my programming skills constantly."
       ],
       future: [
-        "[Sentence 1]",
-        "[Sentence 2]",
-        "[Sentence 3]",
-        "[Sentence 4]",
-        "[Sentence 5]"
+        "I will be a successful programmer.",
+        "I will have my own business.",
+        "I will travel to different countries.",
+        "I will buy a house.",
+        "I will help my family."
       ]
     }
   }
